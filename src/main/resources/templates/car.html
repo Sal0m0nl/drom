@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${car.getModel()}"></title>
+</head>
+<body>
+    <h1 th:text="${car.getModel()}"></h1>
+    <p th:text="${car.getDescription()}"></p>
+    <p th:text="|Color: ${car.getColor()}|"></p>
+    <p th:text="|Mileage: ${car.getMileage()}|"></p>
+    <p th:text="|State: ${car.getState()}|"></p>
+</body>
+</html>
