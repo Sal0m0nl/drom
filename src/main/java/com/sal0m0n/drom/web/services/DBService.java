@@ -36,11 +36,11 @@ public class DBService {
 
     }
 
-    public MyUser saveUser(MyUser user) {
+    public void saveUser(MyUser user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return usersRepository.save(user);
+        usersRepository.save(user);
 
     }
 
