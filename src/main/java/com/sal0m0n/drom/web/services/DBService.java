@@ -44,6 +44,12 @@ public class DBService {
 
     }
 
+    public void saveCar(Car car) {
+
+        carsRepository.save(car);
+
+    }
+
     public Optional<MyUser> findUserByUsername(String username) {
 
         return usersRepository.findByUsername(username);

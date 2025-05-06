@@ -33,10 +33,9 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/register-user").permitAll()
-                        .requestMatchers("/add-car").permitAll()
-                        .requestMatchers("/register-car").permitAll()
                         .requestMatchers("/cars/*").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/img/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

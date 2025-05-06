@@ -6,7 +6,5 @@ spring:
     url: jdbc:mysql://localhost:3306/drom_db
     password: root
     username: root
-  security:
-    user:
-      password: 1
-      name: 1
+upload:
+  path: C:\uploads\drom

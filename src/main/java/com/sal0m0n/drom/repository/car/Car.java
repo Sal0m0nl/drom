@@ -20,8 +20,12 @@ public class Car {
 
     private String color;
 
-    private String mileage;
+    private int mileage;
 
     private Long ownerId;
+
+    private int price;
+
+    private String imageName;
 
 }
