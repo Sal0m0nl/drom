@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -56,8 +57,19 @@ public class MainWebController {
 
     }
 
+    @GetMapping("/register")
+    public String registerPage() {
+
+        return "register";
+
+    }
+
     @PostMapping("/register-user")
-    public ResponseEntity<Map<String, String>> registerUser(@RequestBody UserDTO userDTO) {
+    public String registerUser(@ModelAttribute UserDTO userDTO) {
+
+        if(dbService.findUserByUsername(userDTO.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found")) != null) {
+            return "redirect:/register";
+        }
 
         MyUser user = new MyUser();
         user.setUsername(userDTO.getUsername());
@@ -67,25 +79,17 @@ public class MainWebController {
 
         dbService.saveUser(user);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(Map.of("message", "User registered successfully"));
+        return "redirect:/";
 
     }
 
     @PostMapping("/register-car")
-    public ResponseEntity<Map<String, String>> registerCar(@AuthenticationPrincipal UserDetails userDetails,
+    public String registerCar(@AuthenticationPrincipal UserDetails userDetails,
                                                            @ModelAttribute CarDTO carDTO) throws IOException {
 
         Car car = new Car();
 
         if(carDTO.getImage() != null) {
-
-           File uploadFolder = new File(uploadPath);
-
-           if(!uploadFolder.exists()) {
-               uploadFolder.mkdir();
-           }
 
             String uuidFile = UUID.randomUUID().toString();
 
@@ -109,9 +113,7 @@ public class MainWebController {
 
         dbService.saveCar(car);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(Map.of("message", "Car registered successfully"));
+        return "redirect:/";
 
     }
 
